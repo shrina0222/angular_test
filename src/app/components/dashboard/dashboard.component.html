@@ -1,0 +1,52 @@
+<fieldset>
+  <legend>Period: Year 2015</legend>
+
+  <h4>State</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a state</mat-label>
+    <select matNativeControl (change)="onSelect($event)">
+      <option>Select State</option>
+      <option
+        *ngFor="let state of states; let indx = index"
+        value="{{ indx }}"
+        >{{ state.region }}</option
+      >
+    </select>
+  </mat-form-field>
+</fieldset>
+
+<div *ngIf="selectedState">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      <fieldset>
+        <legend>{{ selectedState.region }} Statistics</legend>
+
+        <table class="statistics">
+          <tr>
+            <td>AtLeast one measure</td>
+            <td>{{ selectedState.atleast_one_measure }}</td>
+          </tr>
+          <tr>
+            <td>Immunization measure</td>
+            <td>{{ selectedState.immunization_measure }}</td>
+          </tr>
+          <tr>
+            <td>Reportable measure</td>
+            <td>{{ selectedState.reportable_lab_results_measure }}</td>
+          </tr>
+          <tr>
+            <td>Syndromic measure</td>
+            <td>{{ selectedState.syndromic_surveillance_measure }}</td>
+          </tr>
+          <tr>
+            <td>Registery measure</td>
+            <td>{{ selectedState.registry_measure }}</td>
+          </tr>
+        </table>
+      </fieldset>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div echarts [options]="chartOption" class="health-chart"></div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
